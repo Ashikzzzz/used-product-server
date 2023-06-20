@@ -42,6 +42,15 @@ userSchema.pre("save",function(next){
     next()
 
 })
+
+
+// compare a password for login 
+
+userSchema.methods.comparePassword = (password, hash)=>{
+    const isPasswordValid = bcrypt.compareSync(password,hash)
+    return isPasswordValid
+}
+
 // user model 
 
 const User = mongoose.model("User",userSchema)
