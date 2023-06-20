@@ -4,13 +4,13 @@ const { createAuserService } = require("../services/user.services");
 exports.createAuser = async(req, res, next)=>{
     try {
         const data = req.body;
-        console.log(data)
+        console.log("data",data)
         const result = await createAuserService(data)
-        console.log(result)
+        console.log("result",result)
         res.status(200).json({
             status: 'success',
             massage: "User inserted Successfully!",
-            data: result
+            signUpData: result
         })
     } catch (error) {
         res.status(400).json({
