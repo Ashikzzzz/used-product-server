@@ -6,6 +6,7 @@ const cors = require("cors");
 
 const userRoute = require("./routes/user.route")
 const productsRoute= require("./routes/products.route")
+const productsNameRoute = require("./routes/productsName.route")
 
 // middleware
 app.use(express.json());
@@ -17,6 +18,7 @@ app.use("/api/v1/users",userRoute)
 
 // using product routes
 app.use("/api/v1/products",productsRoute)
+app.use("/api/v1",productsNameRoute)
 
 
 // ---------- Happy Server ----------
