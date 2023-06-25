@@ -8,6 +8,8 @@ const userRoute = require("./routes/user.route")
 const productsRoute= require("./routes/products.route")
 const productsNameRoute = require("./routes/productsName.route")
 const bookingRoute = require("./routes/booking.route")
+const addProductRoute = require("./routes/addProduct.route")
+
 
 // middleware
 app.use(express.json());
@@ -24,6 +26,8 @@ app.use("/api/v1",productsNameRoute)
 // using booking data 
 app.use("/api/v1/booking",bookingRoute)
 
+// using add product route -----------
+app.use("/api/v1/product",addProductRoute)
 
 // ---------- Happy Server ----------
 app.get("/", (req, res) => {
