@@ -1,7 +1,7 @@
 const { getProductsNameServices } = require("../services/productsName.services")
 
 
-exports.getProductsName = async(req, res, next)=>{
+exports.getProductsName = async(req, res)=>{
     try {
      
       const result = await getProductsNameServices()

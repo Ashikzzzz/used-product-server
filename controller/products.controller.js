@@ -2,7 +2,7 @@ const { getCatagoryProducts, getProductsbyIdServices } = require("../services/pr
 
 // get product by category_name 
 
-exports.getProducts = async(req, res, next)=>{
+exports.getProducts = async(req, res)=>{
     try {
       const products = req.params.category_name;
       console.log(products)
@@ -22,7 +22,7 @@ exports.getProducts = async(req, res, next)=>{
 
 
 // get product by id 
-exports.getProductsById = async(req, res, next)=>{
+exports.getProductsById = async(req, res)=>{
     try {
       const result = await getProductsbyIdServices(req.params.id)
       console.log("result",result)

@@ -2,7 +2,7 @@ const { createAuserService, loginAuserService, findUserByEmail } = require("../s
 const { generateToken } = require("../utils/token");
 
 // save a user controller-------------------------------
-exports.createAuser = async(req, res, next)=>{
+exports.createAuser = async(req, res)=>{
     try {
         const data = req.body;
         console.log("data",data)
@@ -24,7 +24,7 @@ exports.createAuser = async(req, res, next)=>{
 
 
 // login a user controller --------------------------------
-exports.loginAuser = async(req, res, next)=>{
+exports.loginAuser = async(req, res)=>{
     try {
         const {email,password}= req.body                     //take data from body
 
@@ -95,7 +95,7 @@ exports.loginAuser = async(req, res, next)=>{
 
 
 //  user persistance -------------------------------
-exports.getMe = async(req, res, next)=>{
+exports.getMe = async(req, res)=>{
     try {
         console.log(req?.user?.email)
        let user= await findUserByEmail(req?.user?.email)
