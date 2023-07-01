@@ -25,6 +25,6 @@ exports.getSellerProductServices = async (email) => {
 // delete products ------------------------
 
 exports.deleteProductServices = async (id) => {
-    const result = await AddProduct.find({_id: id});
+    const result = await AddProduct.deleteOne({_id: id});
     return result
 };

@@ -9,7 +9,7 @@ const productsRoute= require("./routes/products.route")
 const productsNameRoute = require("./routes/productsName.route")
 const bookingRoute = require("./routes/booking.route")
 const addProductRoute = require("./routes/addProduct.route")
-
+const addvertisedRoute = require("./routes/advertised.route")
 
 // middleware
 app.use(express.json());
@@ -28,6 +28,10 @@ app.use("/api/v1/booking",bookingRoute)
 
 // using add product route -----------
 app.use("/api/v1/product",addProductRoute)
+
+
+// using advertised product route -----------
+app.use("/api/v1/advertised-product",addvertisedRoute)
 
 // ---------- Happy Server ----------
 app.get("/", (req, res) => {
