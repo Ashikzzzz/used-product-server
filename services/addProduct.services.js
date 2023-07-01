@@ -3,7 +3,7 @@ const AddProduct = require("../model/addProduct")
 exports.createProductServices = async (data) => {
 
     if (data) {
-        const bookedData = await AddProduct.findOne({name : data.name});
+        const bookedData = await AddProduct.findOne({productName : data.productName});
         if (bookedData) {
             const result = "already created";
             return result
@@ -13,4 +13,18 @@ exports.createProductServices = async (data) => {
             return result;
         }
     }
+};
+
+
+// get products by user email ------------------------
+
+exports.getSellerProductServices = async (email) => {
+    const result = await AddProduct.find({email: email});
+    return result
+};
+// delete products ------------------------
+
+exports.deleteProductServices = async (id) => {
+    const result = await AddProduct.find({_id: id});
+    return result
 };

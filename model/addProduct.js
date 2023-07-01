@@ -5,11 +5,13 @@ const addProductSchema = new mongoose.Schema({
     productName:{
         type: String 
     },
-    
+    email:{
+        type: String
+    },
     productPrice:{
         type: String
     },
-    picture:{
+    productURL:{
         type:String
     },
     category_name:{
