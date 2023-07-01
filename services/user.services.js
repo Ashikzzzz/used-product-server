@@ -36,3 +36,9 @@ exports.loginAuserService = async(email)=>{
 exports.findUserByEmail = async (email) => {
     return await User.findOne({ email });
  };
+
+
+//  get all buyer service --------------
+exports.getAllBuyerService=async()=>{
+    return await User.find({role : "buyer"})
+}

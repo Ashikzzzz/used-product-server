@@ -15,4 +15,9 @@ router.route("/log-in")
 // user persistance ------------------
 router.get("/me", verifyToken, userController.getMe);
 
+
+// get all buyer 
+router.route("/allbuyer")
+.get(userController.getAllBuyer)
+
 module.exports = router;
