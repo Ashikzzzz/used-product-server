@@ -7,6 +7,6 @@ router.route("/create-advertise")
 
 // get advertised product ----------------
 router.route("/get-advertised-product")
-.get()
+.get(advertisedController.getAdvertisedItem)
 
 module.exports = router;

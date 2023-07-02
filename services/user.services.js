@@ -42,3 +42,15 @@ exports.findUserByEmail = async (email) => {
 exports.getAllBuyerService=async()=>{
     return await User.find({role : "buyer"})
 }
+
+
+// delete a buyer --------------------
+exports.deleteABuyerServices=async(id)=>{
+    const result = await User.deleteOne({_id : id})
+    return result
+}
+
+//  get all seller service --------------
+exports.getAllSellerService=async()=>{
+    return await User.find({role : "seller"})
+}

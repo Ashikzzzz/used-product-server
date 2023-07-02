@@ -1,4 +1,4 @@
-const { createAdvertisedServices } = require("../services/advertised.services");
+const { createAdvertisedServices, getAdvertisedItemServices } = require("../services/advertised.services");
 
 // create a booking controller ----------------------
 exports.createAdvertised = async (req, res) => {
@@ -14,6 +14,28 @@ exports.createAdvertised = async (req, res) => {
         res.status(400).json({
             status: 'error',
             massage: "Create product Error",
+            error: error.message
+        })
+    }
+};
+
+
+
+// get booking products by email controller ----------------------
+exports.getAdvertisedItem = async (req, res) => {
+    try {
+       
+        const result = await getAdvertisedItemServices()
+        res.status(200).json({
+            status: 'success',
+            massage: "Get advertised item Successfully!",
+            data: result
+        })
+    }
+    catch (error) {
+        res.status(400).json({
+            status: 'error',
+            massage: "Create Booking Error",
             error: error.message
         })
     }

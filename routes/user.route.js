@@ -20,4 +20,13 @@ router.get("/me", verifyToken, userController.getMe);
 router.route("/allbuyer")
 .get(userController.getAllBuyer)
 
+
+// get all buyer 
+router.route("/allbuyer/:id")
+.delete(userController.deleteABuyer)
+
+// get all seller
+router.route("/allseller")
+.get(userController.getAllSeller)
+
 module.exports = router;
