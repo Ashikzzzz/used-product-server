@@ -54,3 +54,10 @@ exports.deleteABuyerServices=async(id)=>{
 exports.getAllSellerService=async()=>{
     return await User.find({role : "seller"})
 }
+
+
+// delete a Seller --------------------
+exports.deleteASellerServices=async(id)=>{
+    const result = await User.deleteOne({_id : id})
+    return result
+}

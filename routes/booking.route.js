@@ -1,13 +1,14 @@
 const express = require("express")
 const router = express.Router()
 const bookingController = require("../controller/booking.controller")
+const verifyToken = require("../middleware/verifyToken")
 
 
 router.route("/product-booking")
-.post(bookingController.createBooking)
+.post(verifyToken, bookingController.createBooking)
 
 // get booking product by user Email 
 router.route("/product-booking/:email")
-.get(bookingController.getBookingByEmail)
+.get(verifyToken, bookingController.getBookingByEmail)
 
 module.exports = router;

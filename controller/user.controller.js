@@ -1,4 +1,4 @@
-const { createAuserService, loginAuserService, findUserByEmail, getAllBuyerService, deleteABuyerServices, getAllSellerService } = require("../services/user.services");
+const { createAuserService, loginAuserService, findUserByEmail, getAllBuyerService, deleteABuyerServices, getAllSellerService, deleteASellerServices } = require("../services/user.services");
 const { generateToken } = require("../utils/token");
 
 // save a user controller-------------------------------
@@ -134,7 +134,7 @@ exports.getAllBuyer = async(req, res)=>{
 }
 
 
-// get all buyer 
+// delete a buyer 
 exports.deleteABuyer = async(req, res)=>{
     try {
         const id = req.params.id
@@ -160,6 +160,24 @@ exports.getAllSeller = async(req, res)=>{
     
         res.status(200).json({
             status: 'success',
+            data: result
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: 'error',
+            error: error.message
+        })
+    }
+}
+
+// delete a seller 
+exports.deleteASeller = async(req, res)=>{
+    try {
+        const id = req.params.id
+      const result = await deleteASellerServices(id)
+    
+        res.status(200).json({
+            status: 'Seller delete  successful',
             data: result
         })
     } catch (error) {

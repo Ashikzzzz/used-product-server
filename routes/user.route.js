@@ -23,10 +23,14 @@ router.route("/allbuyer")
 
 // get all buyer 
 router.route("/allbuyer/:id")
-.delete(userController.deleteABuyer)
+.delete(verifyToken, userController.deleteABuyer)
 
 // get all seller
 router.route("/allseller")
 .get(userController.getAllSeller)
+
+// delete a seller ------------
+router.route("/allseller/:id")
+.delete(verifyToken, userController.deleteASeller)
 
 module.exports = router;
