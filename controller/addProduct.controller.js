@@ -1,4 +1,4 @@
-const { createProductServices, getSellerProductServices, deleteProductServices } = require("../services/addProduct.services");
+const { createProductServices, getSellerProductServices, deleteProductServices, updateProductServices } = require("../services/addProduct.services");
 
 
 // create a booking controller ----------------------
@@ -55,6 +55,28 @@ exports.deleteSellerProduct = async (req, res) => {
         res.status(400).json({
             status: 'error',
             massage: "Delete product Error",
+            error: error.message
+        })
+    }
+};
+
+
+// update a booking ----------------------
+exports.updateAProduct = async (req, res, next) => {
+    try {
+        const id = req.params.id
+        const body = req.body
+        const result = await updateProductServices(id, body)
+        res.status(200).json({
+            status: 'success',
+            massage: "Product Update successfully",
+            data: result
+        })
+    }
+    catch (error) {
+        res.status(400).json({
+            status: "error",
+            massage: "Product Update error",
             error: error.message
         })
     }

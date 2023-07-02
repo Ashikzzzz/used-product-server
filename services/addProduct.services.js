@@ -28,3 +28,10 @@ exports.deleteProductServices = async (id) => {
     const result = await AddProduct.deleteOne({_id: id});
     return result
 };
+
+
+// edit a product ---------------
+exports.updateProductServices = async (id, data) => {
+    const result = await AddProduct.updateOne({ _id: id }, { $set: data })
+    return result
+};
