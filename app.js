@@ -10,6 +10,7 @@ const productsNameRoute = require("./routes/productsName.route")
 const bookingRoute = require("./routes/booking.route")
 const addProductRoute = require("./routes/addProduct.route")
 const addvertisedRoute = require("./routes/advertised.route")
+const paymentRouter = require("./routes/payment.route")
 
 // middleware
 app.use(express.json());
@@ -32,6 +33,10 @@ app.use("/api/v1/product",addProductRoute)
 
 // using advertised product route -----------
 app.use("/api/v1/advertised-product",addvertisedRoute)
+
+
+// payment route --------------------------
+app.use("/api/v1/payment", paymentRouter)
 
 // ---------- Happy Server ----------
 app.get("/", (req, res) => {

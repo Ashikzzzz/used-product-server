@@ -4,6 +4,7 @@ const userController = require("../controller/user.controller")
 const verifyToken = require("../middleware/verifyToken")
 const authorization = require("../middleware/authorization")
 
+
 // signup route --------------------
 router.route("/create-user")
 .post(userController.createAuser)
@@ -19,19 +20,19 @@ router.get("/me", verifyToken, userController.getMe);
 
 // get all buyer 
 router.route("/allbuyer")
-.get(verifyToken, authorization("admin"), userController.getAllBuyer)
+.get( userController.getAllBuyer)
 
 
 // get all buyer 
 router.route("/allbuyer/:id")
-.delete(verifyToken, authorization("admin"), userController.deleteABuyer)
+.delete(verifyToken, authorization("admin") ,userController.deleteABuyer)
 
 // get all seller
 router.route("/allseller")
-.get(verifyToken, authorization("admin"), userController.getAllSeller)
+.get( userController.getAllSeller)
 
 // delete a seller ------------
 router.route("/allseller/:id")
-.delete(verifyToken, authorization("admin"), userController.deleteASeller)
+.delete(verifyToken, authorization("admin") , userController.deleteASeller)
 
 module.exports = router;

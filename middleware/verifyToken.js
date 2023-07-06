@@ -3,7 +3,9 @@ const {promisify}= require("util")
 
 module.exports= async(req,res,next)=>{
     try {
-        const token = req?.headers?.authorization?.split(" ")[1] //take token from request
+        const token = req?.headers?.authorization?.split(" ")?.[1];
+ //take token from request
+        console.log(req?.headers?.authorization)
         console.log("token",token)
         if(!token){                                                //if not token exist
             res.status(200).json({

@@ -14,7 +14,7 @@ router.route("/my-product")
 
 // delete a product 
 router.route("/delete-product/:id")
-.delete(verifyToken, authorization("seller"),addProductController.deleteSellerProduct)
+.delete(verifyToken, authorization("seller"), addProductController.deleteSellerProduct)
 
 // edit product ----------------------
 // router.route("/edit-product/:id")

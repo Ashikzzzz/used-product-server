@@ -1,4 +1,4 @@
-const { createBookingServices, getBookingsbyEmailServices } = require("../services/booking.services");
+const { createBookingServices, getBookingsbyEmailServices, getABookingServices } = require("../services/booking.services");
 
 
 
@@ -38,6 +38,27 @@ exports.getBookingByEmail = async (req, res) => {
         res.status(400).json({
             status: 'error',
             massage: "Create Booking Error",
+            error: error.message
+        })
+    }
+};
+
+
+// get a booking by id ----------------------
+exports.getBookingById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const result = await getABookingServices(id)
+        res.status(200).json({
+            status: 'success',
+            massage: "get a booking Successfully!",
+            data: result
+        })
+    }
+    catch (error) {
+        res.status(400).json({
+            status: 'error',
+            massage: "get a booking Error",
             error: error.message
         })
     }
