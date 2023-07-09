@@ -47,20 +47,13 @@ exports.createAPayment = async (req, res) => {
         };
 
         // console.log("data",data)
-        res.send(data)
+        // res.send(data)
         const sslcz = new SSLCommerzPayment(process.env.STORE_ID, process.env.STORE_PASS, false)
         sslcz.init(data).then(async apiResponse => {
             // Redirect the user to payment gateway
             let GatewayPageURL = apiResponse.GatewayPageURL
             console.log("GatewayPageURL",GatewayPageURL)
             res.send( {url : GatewayPageURL})
-
-            const paymentDetails = await Fees.create({
-                ...paymentInfo,
-                transactionId,
-                paymentStatus: false,
-            });
-
             console.log('Redirecting to: ', GatewayPageURL)
         
         });
