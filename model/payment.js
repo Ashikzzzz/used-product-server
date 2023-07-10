@@ -14,6 +14,13 @@ const paymentSchema = new mongoose.Schema({
     email:{
         type:String
     },
+    transactionId: {
+        type: String,
+    },
+    paymentStatus: {
+        type: Boolean,
+       
+    },
     
     category_name:{
         type: String

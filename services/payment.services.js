@@ -7,3 +7,10 @@ exports.createAPaymentServices = async (id) => {
     console.log("result", result)
     return result;
 };
+
+
+// success payment success -------------
+exports.successPaymentServices = async (transactionId) => {
+    const result = await Payment.updateOne({ transactionId }, { $set: { paymentStatus: true, paidAt: new Date() } });
+    return result;
+}

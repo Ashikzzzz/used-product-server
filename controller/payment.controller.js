@@ -1,6 +1,6 @@
 
 const SSLCommerzPayment = require('sslcommerz-lts')
-const { createAPaymentServices } = require("../services/payment.services");
+const { createAPaymentServices, successPaymentServices } = require("../services/payment.services");
 const Payment = require('../model/payment');
 
 
@@ -57,8 +57,8 @@ exports.createAPayment = async (req, res) => {
 
               const paymentData=    await Payment.create({
                 ...paymentInfo,
-                transactionId,
-                paid: false,
+               transactionId,
+                paymentStatus: false,
             });
             console.log("paymentData",paymentData)
             res.send( {url : GatewayPageURL})
@@ -80,7 +80,18 @@ exports.createAPayment = async (req, res) => {
 // success payment controller 
 exports.successPayment = async(req, res)=>{
     try {
-        console.log("success")
+        const {transactionId} = req.query
+        const result = await successPaymentServices(transactionId)
+
+        if(result.modifiedCount > 0){
+            return res.redirect(`${process.env.CLIENT_URL}/payment/success?transactionId=${transactionId}`);
+        }
+
+        return res.status(200).json({
+            status: 'success',
+            massage: "Payment Successfully Updated",
+            data: result
+        })
     }
      catch (error) {
         res.status(400).json({
