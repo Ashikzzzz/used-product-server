@@ -1,6 +1,6 @@
 
 const SSLCommerzPayment = require('sslcommerz-lts')
-const { createAPaymentServices, successPaymentServices } = require("../services/payment.services");
+const { createAPaymentServices, successPaymentServices, notificationPaymentServices } = require("../services/payment.services");
 const Payment = require('../model/payment');
 
 
@@ -80,7 +80,9 @@ exports.createAPayment = async (req, res) => {
 // success payment controller 
 exports.successPayment = async(req, res)=>{
     try {
-        const {transactionId} = req.query
+        const transactionId = req.query.transactionId
+
+       
         const result = await successPaymentServices(transactionId)
 
         if(result.modifiedCount > 0){
@@ -101,3 +103,30 @@ exports.successPayment = async(req, res)=>{
         })
     }
 }
+
+
+// notification ----------------------------
+exports.notificationPayment = async (req, res) => {
+    try {
+        const  transactionId  = req.params.transactionId;
+        const result = await notificationPaymentServices(transactionId);
+
+        console.log(result);
+        return res.status(200).json(
+            {
+                data: req.body,
+                message: 'Payment Successful Notification.',
+                result: result
+            }
+        );
+    } catch (error) {
+        return res.status(400).json(
+            {
+                data: req.body,
+                message: 'Payment Successful Notification Error.',
+                result: result
+            }
+        );
+    }
+
+};

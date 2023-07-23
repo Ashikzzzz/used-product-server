@@ -10,5 +10,9 @@ router.route("/ssl-request")
     router.route("/ssl-request-success")
     .post(paymentController.successPayment)
 
+//  payment notification --------------------------
+router.route("/ssl-payment-notification/:transactionId")
+    .get(paymentController.notificationPayment)
+
 
 module.exports = router;

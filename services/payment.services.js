@@ -14,3 +14,12 @@ exports.successPaymentServices = async (transactionId) => {
     const result = await Payment.updateOne({ transactionId }, { $set: { paymentStatus: true, paidAt: new Date() } });
     return result;
 }
+
+
+
+
+// payment success notification -------------
+exports.notificationPaymentServices = async (transactionId) => {
+    const result = await Payment.findOne({ transactionId: transactionId });
+    return result;
+}
