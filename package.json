@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js",
-    "production": "NODE_ENV=production nodemon index.js"
+    "production": "NODE_ENV=production nodemon index.js",
+    "development": "NODE_ENV=development nodemon index.js"
+
   },
   "keywords": [],
   "author": "",

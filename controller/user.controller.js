@@ -1,9 +1,20 @@
 const { createAuserService, loginAuserService, findUserByEmail, getAllBuyerService, deleteABuyerServices, getAllSellerService, deleteASellerServices } = require("../services/user.services");
 const { generateToken } = require("../utils/token");
+const asyncErrorHandler = require("./../utils/asyncErrorHandler")
+
+
+// async handler function -------------
+// const asyncErrorHandler = (func)=>{
+//     return (req,res,next)=> {
+//         func(req, res, next).catch(err => next(err))
+//     }
+   
+    
+// }
 
 // save a user controller-------------------------------
-exports.createAuser = async(req, res)=>{
-    try {
+exports.createAuser =asyncErrorHandler (async(req, res)=>{
+ 
         const data = req.body;
         console.log("data",data)
         const result = await createAuserService(data)
@@ -13,19 +24,13 @@ exports.createAuser = async(req, res)=>{
             massage: "User inserted Successfully!",
             signUpData: result
         })
-    } catch (error) {
-        res.status(400).json({
-            status: 'error',
-            massage: "User inserted Error",
-            error: error.message
-        })
-    }
-}
+   
+})
 
 
 // login a user controller --------------------------------
-exports.loginAuser = async(req, res)=>{
-    try {
+exports.loginAuser =asyncErrorHandler (async(req, res)=>{
+    
         const {email,password}= req.body                     //take data from body
 
  
@@ -84,19 +89,13 @@ exports.loginAuser = async(req, res)=>{
             })
 
 
-    } catch (error) {
-        res.status(400).json({
-            status: 'error',
-            massage: "User logged in Error",
-            error: error.message
-        })
-    }
-}
+    
+})
 
 
 //  user persistance -------------------------------
-exports.getMe = async(req, res)=>{
-    try {
+exports.getMe =asyncErrorHandler (async(req, res)=>{
+    
         console.log(req?.user?.email)
        let user= await findUserByEmail(req?.user?.email)
        console.log("user",user)
@@ -104,75 +103,60 @@ exports.getMe = async(req, res)=>{
             status: 'success',
             data: user
         })
-    } catch (error) {
-        res.status(400).json({
-            status: 'error',
-            error: error.message
-        })
-    }
-}
+    
+})
 
 
 // get all buyer-----------------
 
 
 // get all buyer 
-exports.getAllBuyer = async(req, res)=>{
-    try {
+exports.getAllBuyer =asyncErrorHandler (async(req, res)=>{
+   
       const result = await getAllBuyerService()
     
         res.status(200).json({
             status: 'success',
             data: result
         })
-    } catch (error) {
-        res.status(400).json({
-            status: 'error',
-            error: error.message
-        })
-    }
-}
+   
+})
 
 
 // delete a buyer 
-exports.deleteABuyer = async(req, res)=>{
-    try {
+exports.deleteABuyer =asyncErrorHandler (async(req, res,next)=>{
+   
         const id = req.params.id
       const result = await deleteABuyerServices(id)
+
+      if(!result){
+        const error = new CustomError("Seller with that id isn't found",404)
+        return  next(error)
+    }
     
         res.status(200).json({
             status: 'Buyer delete  successful',
             data: result
         })
-    } catch (error) {
-        res.status(400).json({
-            status: 'error',
-            error: error.message
-        })
-    }
-}
+    
+})
 
 
 // get all buyer 
-exports.getAllSeller = async(req, res)=>{
-    try {
+exports.getAllSeller =asyncErrorHandler (async(req, res)=>{
+   
       const result = await getAllSellerService()
     
         res.status(200).json({
             status: 'success',
             data: result
         })
-    } catch (error) {
-        res.status(400).json({
-            status: 'error',
-            error: error.message
-        })
-    }
-}
+    
+})
 
 // delete a seller 
-exports.deleteASeller = async(req, res)=>{
-    try {
+exports.deleteASeller =asyncErrorHandler (async(req, res)=>{
+   
         const id = req.params.id
       const result = await deleteASellerServices(id)
     
@@ -180,10 +164,5 @@ exports.deleteASeller = async(req, res)=>{
             status: 'Seller delete  successful',
             data: result
         })
-    } catch (error) {
-        res.status(400).json({
-            status: 'error',
-            error: error.message
-        })
-    }
-}
+    
+})

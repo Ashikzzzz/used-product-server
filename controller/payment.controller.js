@@ -2,12 +2,14 @@
 const SSLCommerzPayment = require('sslcommerz-lts')
 const { createAPaymentServices, successPaymentServices, notificationPaymentServices } = require("../services/payment.services");
 const Payment = require('../model/payment');
+const asyncErrorHandler = require("./../utils/asyncErrorHandler");
+const CustomError = require('../utils/customError');
 
 
 // create a payment -------------------------------
-exports.createAPayment = async (req, res) => {
+exports.createAPayment =asyncErrorHandler (async (req, res) => {
 
-    try {
+   
         const paymentInfo = req.body;
         console.log("paymentInfo",paymentInfo)
         const id = paymentInfo.id
@@ -67,19 +69,13 @@ exports.createAPayment = async (req, res) => {
         });
 
 
-    }
-    catch (error) {
-        res.status(400).json({
-            status: 'error',
-            massage: "Data inserted Error",
-            error: error.message
-        })
-    }
-}
+    
+  
+});
 
 // success payment controller 
-exports.successPayment = async(req, res)=>{
-    try {
+exports.successPayment =asyncErrorHandler (async(req, res)=>{
+   
         const transactionId = req.query.transactionId
 
        
@@ -94,21 +90,21 @@ exports.successPayment = async(req, res)=>{
             massage: "Payment Successfully Updated",
             data: result
         })
-    }
-     catch (error) {
-        res.status(400).json({
-            status: 'error',
-            massage: "Data inserted Error",
-            error: error.message
-        })
-    }
-}
+   
+     
+})
 
 
 // notification ----------------------------
-exports.notificationPayment = async (req, res) => {
-    try {
+exports.notificationPayment = asyncErrorHandler (async (req, res,next) => {
+   
         const  transactionId  = req.params.transactionId;
+
+            if(!transactionId){
+                const error = new CustomError("Can't find the transection with this transection ID",404)
+                return  next(error)
+            }
+a
         const result = await notificationPaymentServices(transactionId);
 
         console.log(result);
@@ -119,14 +115,5 @@ exports.notificationPayment = async (req, res) => {
                 result: result
             }
         );
-    } catch (error) {
-        return res.status(400).json(
-            {
-                data: req.body,
-                message: 'Payment Successful Notification Error.',
-                result: result
-            }
-        );
-    }
-
-};
+  
+});

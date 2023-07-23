@@ -12,7 +12,7 @@ const addProductRoute = require("./routes/addProduct.route")
 const addvertisedRoute = require("./routes/advertised.route")
 const paymentRouter = require("./routes/payment.route");
 const CustomError = require("./utils/customError");
-
+const globalErrorController= require("./controller/error.handler")
 
 // middleware
 app.use(express.json());
@@ -61,14 +61,6 @@ app.all("*", (req, res, next)=>{
     next(err)
 })
 
-app.use((error, req, res, next)=>{
-    error.statusCode = error.statusCode || 500;
-    error.status = error.status || 500;
-
-    res.status( error.statusCode).json({
-        status: error.statusCode,
-        message: error.message
-    })
-})
+app.use(globalErrorController)
 
 module.exports = app;

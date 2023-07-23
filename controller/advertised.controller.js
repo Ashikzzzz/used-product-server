@@ -1,29 +1,26 @@
 const { createAdvertisedServices, getAdvertisedItemServices } = require("../services/advertised.services");
+const asyncErrorHandler = require("./../utils/asyncErrorHandler")
+
+
+
 
 // create a booking controller ----------------------
-exports.createAdvertised = async (req, res) => {
-    try {
+exports.createAdvertised = asyncErrorHandler (async (req, res) => {
+   
         const result = await createAdvertisedServices(req.body)
         res.status(200).json({
             status: 'success',
             massage: "Create advertised product Successfully!",
             data: result
         })
-    }
-    catch (error) {
-        res.status(400).json({
-            status: 'error',
-            massage: "Create product Error",
-            error: error.message
-        })
-    }
-};
+   
+});
 
 
 
 // get booking products by email controller ----------------------
-exports.getAdvertisedItem = async (req, res) => {
-    try {
+exports.getAdvertisedItem =asyncErrorHandler (async (req, res) => {
+   
        
         const result = await getAdvertisedItemServices()
         res.status(200).json({
@@ -31,12 +28,6 @@ exports.getAdvertisedItem = async (req, res) => {
             massage: "Get advertised item Successfully!",
             data: result
         })
-    }
-    catch (error) {
-        res.status(400).json({
-            status: 'error',
-            massage: "Create Booking Error",
-            error: error.message
-        })
-    }
-};
+ 
+    
+});

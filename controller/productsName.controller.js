@@ -1,8 +1,7 @@
 const { getProductsNameServices } = require("../services/productsName.services")
+const asyncErrorHandler = require("./../utils/asyncErrorHandler")
 
-
-exports.getProductsName = async(req, res)=>{
-    try {
+exports.getProductsName =asyncErrorHandler (async(req, res)=>{
      
       const result = await getProductsNameServices()
        
@@ -10,10 +9,5 @@ exports.getProductsName = async(req, res)=>{
             status: 'success',
             data: result
         })
-    } catch (error) {
-        res.status(400).json({
-            status: 'error',
-            error: error.message
-        })
-    }
-}
+    
+})

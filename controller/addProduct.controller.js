@@ -1,29 +1,23 @@
 const { createProductServices, getSellerProductServices, deleteProductServices, updateProductServices } = require("../services/addProduct.services");
-
+const CustomError = require("../utils/customError");
+const asyncErrorHandler = require("./../utils/asyncErrorHandler")
 
 // create a booking controller ----------------------
-exports.createAproduct = async (req, res) => {
-    try {
+exports.createAproduct = asyncErrorHandler (async (req, res) => {
+   
         const result = await createProductServices(req.body)
         res.status(200).json({
             status: 'success',
             massage: "Create product Successfully!",
             data: result
         })
-    }
-    catch (error) {
-        res.status(400).json({
-            status: 'error',
-            massage: "Create product Error",
-            error: error.message
-        })
-    }
-};
+  
+});
 
 
 // get selller products by email controller ----------------------
-exports.getSellerProduct = async (req, res) => {
-    try {
+exports.getSellerProduct = asyncErrorHandler( async (req, res) => {
+  
         const query = req.query.email;
         const result = await getSellerProductServices(query)
         res.status(200).json({
@@ -31,39 +25,31 @@ exports.getSellerProduct = async (req, res) => {
             massage: "Get product Successfully!",
             data: result
         })
-    }
-    catch (error) {
-        res.status(400).json({
-            status: 'error',
-            massage: "Get product Error",
-            error: error.message
-        })
-    }
-};
+   
+});
 // delete a product controller ----------------------
-exports.deleteSellerProduct = async (req, res) => {
-    try {
+exports.deleteSellerProduct =asyncErrorHandler (async (req, res,next) => {
+   
         const id = req.params.id;
         const result = await deleteProductServices(id)
+
+        if(!result){
+            const error = new CustomError("Delete product with that id isn't found",404)
+            return  next(error)
+        }
+
         res.status(200).json({
             status: 'success',
             massage: "Delete product Successfully!",
             data: result
         })
-    }
-    catch (error) {
-        res.status(400).json({
-            status: 'error',
-            massage: "Delete product Error",
-            error: error.message
-        })
-    }
-};
+ 
+});
 
 
 // update a booking ----------------------
-exports.updateAProduct = async (req, res, next) => {
-    try {
+exports.updateAProduct =asyncErrorHandler (async (req, res, next) => {
+  
         const id = req.params.id
         const body = req.body
         const result = await updateProductServices(id, body)
@@ -72,12 +58,6 @@ exports.updateAProduct = async (req, res, next) => {
             massage: "Product Update successfully",
             data: result
         })
-    }
-    catch (error) {
-        res.status(400).json({
-            status: "error",
-            massage: "Product Update error",
-            error: error.message
-        })
-    }
-};
+   
+ 
+});
